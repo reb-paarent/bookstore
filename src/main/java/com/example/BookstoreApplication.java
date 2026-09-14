@@ -20,10 +20,10 @@ public class BookstoreApplication {
 	public CommandLineRunner bookDemo(BookRepository bRepository) {
 		return (args) -> {
 			bRepository.save(new Book("Book 1", "Mr. Green", 1999, "A12345", 1.50));
-			bRepository.save(new Book("Book 2", "Miss Scarlet", 1992, "", 2.50));
-			bRepository.save(new Book("Book 3", "Colonel Mustard", 1995, "", 3.99));
-			bRepository.save(new Book("Book 4", "Professor Plum", 1987, "", 11.50));
-			bRepository.save(new Book("Book 5", "Mrs. Peacock", 1991, "", 19.99));
+			bRepository.save(new Book("Book 2", "Miss Scarlet", 1992, "B12345", 2.50));
+			bRepository.save(new Book("Book 3", "Colonel Mustard", 1995, "C12345", 3.99));
+			bRepository.save(new Book("Book 4", "Professor Plum", 1987, "D12345", 11.50));
+			bRepository.save(new Book("Book 5", "Mrs. Peacock", 1991, "E12345", 19.99));
 		};
 	}
 
