@@ -1,5 +1,8 @@
 package com.example.web;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.example.domain.BookRepository;
 import com.example.domain.Book;
 import com.example.domain.CategoryRepository;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 
 @Controller
 public class BookController {
@@ -61,5 +67,17 @@ public class BookController {
         model.addAttribute("categories", crepository.findAll());
         return "editbook";
     }
+
+    //Return all books REST
+    @RequestMapping(value="/books", method=RequestMethod.GET)
+    public @ResponseBody List<Book> bookListRest() {	
+        return (List<Book>) repository.findAll();
+    } 
+     
+    //Return book by id REST 
+    @RequestMapping(value="/book/{id}", method = RequestMethod.GET)
+    public @ResponseBody Optional<Book> findBookRest(@PathVariable("id") Long BookId) {	
+    	return repository.findById(BookId);
+    } 
 }
 

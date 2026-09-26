@@ -2,6 +2,9 @@ package com.example.domain;
 import jakarta.persistence.*;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 public class Category {
     @Id
@@ -9,7 +12,9 @@ public class Category {
     private Long id;
     private String name;
 
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
+    @JsonIgnore
 	private List<Book> books;
 
     public Category(){
@@ -40,7 +45,7 @@ public class Category {
 		return books;
 	}
 
-	public void setbooks(List<Book> books) {
+	public void setBooks(List<Book> books) {
 		this.books = books;
 	}
 }
