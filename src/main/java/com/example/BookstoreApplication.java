@@ -11,6 +11,12 @@ import com.example.domain.Book;
 import com.example.domain.CategoryRepository;
 import com.example.domain.Category;
 
+import com.example.domain.AppUser;
+import com.example.domain.AppUserRepository;
+
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 @SpringBootApplication
 public class BookstoreApplication {
 
@@ -19,7 +25,11 @@ public class BookstoreApplication {
 	}
 
 	@Bean
-	public CommandLineRunner bookDemo(BookRepository bRepository, CategoryRepository cRepository) {
+	public CommandLineRunner bookDemo(
+		BookRepository bRepository, 
+		CategoryRepository cRepository,
+		AppUserRepository userRepository, 
+		PasswordEncoder passwordEncoder) {
 		return (args) -> {
 			cRepository.save(new Category("Mystery"));
 			cRepository.save(new Category("Non-fiction"));
@@ -30,7 +40,17 @@ public class BookstoreApplication {
 			bRepository.save(new Book("Book 3", "Colonel Mustard", 1995, "C12345", 3.99, cRepository.findByName("Mystery").get(0)));
 			bRepository.save(new Book("Book 4", "Professor Plum", 1987, "D12345", 11.50, cRepository.findByName("Non-fiction").get(0)));
 			bRepository.save(new Book("Book 5", "Mrs. Peacock", 1991, "E12345", 19.99, cRepository.findByName("Romance").get(0)));
-		};
-	}
+			
+			if (userRepository.findByUsername("user") == null) {
+            userRepository.save(
+                new AppUser("user", passwordEncoder.encode("user"), "USER", "user@example.com"));
+        }
 
+        if (userRepository.findByUsername("admin") == null) {
+            userRepository.save(
+                new AppUser("admin", passwordEncoder.encode("admin"), "ADMIN", "admin@example.com"));
+        }
+	};
+
+}
 }

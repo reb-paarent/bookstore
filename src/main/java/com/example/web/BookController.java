@@ -17,6 +17,9 @@ import com.example.domain.CategoryRepository;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
+
 
 @Controller
 public class BookController {
@@ -54,6 +57,7 @@ public class BookController {
     }    
 
     //Delete book
+    @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public String deleteBook(@PathVariable("id") Long id, Model model) {
     	repository.deleteById(id);
