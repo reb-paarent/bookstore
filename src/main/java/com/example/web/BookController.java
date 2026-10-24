@@ -66,7 +66,7 @@ public class BookController {
     
     //Edit book
     @RequestMapping(value = "/edit/{id}")
-    public String showModStu(@PathVariable("id") Long id, Model model){
+    public String editBook(@PathVariable("id") Long id, Model model){
         model.addAttribute("book", repository.findById(id));
         model.addAttribute("categories", crepository.findAll());
         return "editbook";
@@ -84,4 +84,3 @@ public class BookController {
     	return repository.findById(BookId);
     } 
 }
-

@@ -17,11 +17,12 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/css/**", "/index").permitAll()
+                .requestMatchers("/css/**", "/index", "/signup", "/saveuser", "/login").permitAll()
                 .requestMatchers("/delete/**").hasAuthority("ADMIN")
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form
+                .loginPage("/login")
                 .defaultSuccessUrl("/booklist", true)
                 .permitAll()
             )
